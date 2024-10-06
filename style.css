@@ -1,0 +1,26 @@
+.container {
+  width: 330px;
+  height: 367px;
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.checkbox {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  border-radius: 5px;
+  border: 1px #191919 solid;
+}
+
+.delete-button {
+  position: absolute;
+  right: 37px;
+  background: none;
+  border: none;
+  color: red;
+  font-size: 18px;
+  cursor: pointer;
+}
