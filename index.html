@@ -1,12 +1,17 @@
-<div class="container">
-  <div class="todo-list">
-    <div class="todo-item">
-      <div class="checkbox"></div>
-      <button class="delete-button" onclick="deleteItem(this)">×</button>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>투두리스트 위젯</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">투두리스트</div>
+        <div class="todo-list" id="todoList"></div>
+        <button id="addButton">+ add</button>
     </div>
-    <!-- 추가 아이템들이 여기에 동적으로 생성될 것입니다. -->
-  </div>
-  
-  <input type="text" class="input-field" placeholder="Add a new todo item">
-  <div class="add-button">Add</div>
-</div>
+    <script src="script.js"></script>
+</body>
+</html>
