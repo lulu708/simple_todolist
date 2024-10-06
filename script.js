@@ -1,29 +1,51 @@
-document.getElementById('addButton').addEventListener('click', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const todoList = document.getElementById('todoList');
 
-    const todoItem = document.createElement('div');
-    todoItem.className = 'todo-item';
+    // 저장된 투두리스트 항목 불러오기
+    const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+    savedTodos.forEach(todo => {
+        addTodoItem(todo);
+    });
 
-    // 체크 박스 추가
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
+    document.getElementById('addButton').addEventListener('click', function() {
+        const newTodo = '';
+        addTodoItem(newTodo);
+    });
 
-    // 입력 필드 추가
-    const inputField = document.createElement('input');
-    inputField.type = 'text';
-    inputField.placeholder = '할 일을 입력하세요';
+    function addTodoItem(todo) {
+        const todoItem = document.createElement('div');
+        todoItem.className = 'todo-item';
 
-    // 삭제 버튼 추가
-    const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = 'x';
-    deleteButton.className = 'delete-button';
-    deleteButton.onclick = function() {
-        todoList.removeChild(todoItem);
-    };
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
 
-    // 체크 박스와 입력 필드, 삭제 버튼을 todoItem에 추가
-    todoItem.appendChild(checkbox);
-    todoItem.appendChild(inputField);
-    todoItem.appendChild(deleteButton);
-    todoList.appendChild(todoItem);
+        const inputField = document.createElement('input');
+        inputField.type = 'text';
+        inputField.placeholder = '할 일을 입력하세요';
+        inputField.value = todo; // 기존 항목의 내용 설정
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerHTML = 'x';
+        deleteButton.className = 'delete-button';
+        deleteButton.onclick = function() {
+            todoList.removeChild(todoItem);
+            saveTodos(); // 삭제 후 저장
+        };
+
+        inputField.addEventListener('input', saveTodos); // 입력 시 저장
+
+        todoItem.appendChild(checkbox);
+        todoItem.appendChild(inputField);
+        todoItem.appendChild(deleteButton);
+        todoList.appendChild(todoItem);
+    }
+
+    function saveTodos() {
+        const todos = [];
+        const items = document.querySelectorAll('.todo-item input[type="text"]');
+        items.forEach(item => {
+            todos.push(item.value);
+        });
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }
 });
