@@ -1,24 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo Widget</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>투두리스트 위젯</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet"> <!-- 사용할 폰트 -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .todolist {
+            max-width: 300px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .item:last-child {
+            border-bottom: none;
+        }
+        .checkbox {
+            cursor: pointer;
+        }
+        .add-item {
+            display: flex;
+            margin-top: 10px;
+        }
+        .add-input {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .add-button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-  <div class="todo-list">
-    <div class="todo-item">
-      <div class="checkbox"></div>
-      <button class="delete-button" onclick="deleteItem(this)">×</button>
+    <div class="todolist" id="todolist">
+        <h3>투두리스트</h3>
+        <div id="items"></div>
+        <div class="add-item">
+            <input type="text" id="newItem" class="add-input" placeholder="새 항목 추가...">
+            <button class="add-button" onclick="addItem()">추가</button>
+        </div>
     </div>
-    <!-- 추가 아이템들이 여기에 동적으로 생성될 것입니다. -->
-  </div>
-  
-  <input type="text" class="input-field" placeholder="Add a new todo item">
-  <div class="add-button">Add</div>
-</div>
+    <script>
+        function addItem() {
+            const newItem = document.getElementById('newItem').value;
+            if (newItem) {
+                const itemsDiv = document.getElementById('items');
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                itemDiv.innerHTML = `<span>${newItem}</span><input type="checkbox" class="checkbox">`;
+                itemsDiv.appendChild(itemDiv);
+                document.getElementById('newItem').value = '';
+            }
+        }
+    </script>
 </body>
 </html>
