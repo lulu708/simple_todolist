@@ -1,16 +1,21 @@
-document.querySelector('.add-button').addEventListener('click', function() {
-  const inputField = document.querySelector('.input-field');
-  const todoText = inputField.value.trim();
+document.getElementById('addButton').addEventListener('click', function() {
+    const todoList = document.getElementById('todoList');
 
-  if (todoText) {
-    const newTodoItem = document.createElement('div');
-    newTodoItem.className = 'todo-item';
-    newTodoItem.innerHTML = `
-      <div class="checkbox"></div>
-      <button class="delete-button" onclick="deleteItem(this)">×</button>
-    `;
+    const todoItem = document.createElement('div');
+    todoItem.className = 'todo-item';
 
-    document.querySelector('.todo-list').appendChild(newTodoItem); // 동적으로 추가
-    inputField.value = ''; // 입력 필드 비우기
-  }
+    const inputField = document.createElement('input');
+    inputField.type = 'text';
+    inputField.placeholder = '할 일을 입력하세요';
+
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = 'x';
+    deleteButton.className = 'delete-button';
+    deleteButton.onclick = function() {
+        todoList.removeChild(todoItem);
+    };
+
+    todoItem.appendChild(inputField);
+    todoItem.appendChild(deleteButton);
+    todoList.appendChild(todoItem);
 });
