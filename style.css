@@ -59,3 +59,17 @@ body {
     cursor: pointer;
     vertical-align: middle;
 }
+.camera-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    vertical-align: middle;
+    padding: 0; /* 버튼 안쪽 여백 제거 */
+}
+
+.camera-button svg {
+    width: 20px;
+    height: 20px;
+    fill: black; /* SVG 아이콘 색상 설정 */
+}
+
