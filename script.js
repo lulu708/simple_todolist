@@ -87,21 +87,25 @@ document.getElementById('copyLinkButton').addEventListener('click', function() {
 });
 
 window.downloadImage = function() {
-    // 캡처 전에 버튼들 숨기기
+    // 버튼들 숨기기
     document.getElementById('addButton').style.display = 'none';
     document.getElementById('copyLinkButton').style.display = 'none';
     document.getElementById('captureButton').style.display = 'none';
 
-    html2canvas(document.querySelector('.container')).then(canvas => {
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png');
-        link.download = 'todolist.png'; // 다운로드할 파일 이름
-        link.click(); // 다운로드 트리거
+    // DOM이 업데이트되도록 잠시 대기한 후 캡처 실행
+    setTimeout(function() {
+        html2canvas(document.querySelector('.container')).then(canvas => {
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'todolist.png'; // 다운로드할 파일 이름
+            link.click(); // 다운로드 트리거
 
-        // 캡처 후 버튼들 다시 보이기
-        document.getElementById('addButton').style.display = 'inline';
-        document.getElementById('copyLinkButton').style.display = 'inline';
-        document.getElementById('captureButton').style.display = 'inline';
-    });
+            // 캡처 후 버튼들 다시 보이기
+            document.getElementById('addButton').style.display = 'inline';
+            document.getElementById('copyLinkButton').style.display = 'inline';
+            document.getElementById('captureButton').style.display = 'inline';
+        });
+    }, 100); // 100ms 대기 (필요에 따라 시간 조정 가능)
 }
+
 
