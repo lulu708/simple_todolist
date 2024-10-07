@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const todoList = document.getElementById('todoList');
 
     // 저장된 투두리스트 항목 불러오기
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         addTodoItem(todo);
     });
 
-    document.getElementById('addButton').addEventListener('click', function () {
+    document.getElementById('addButton').addEventListener('click', function() {
         const newTodo = '';
         addTodoItem(newTodo);
     });
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const deleteButton = document.createElement('button');
         deleteButton.innerHTML = 'x';
         deleteButton.className = 'delete-button';
-        deleteButton.onclick = function () {
+        deleteButton.onclick = function() {
             todoList.removeChild(todoItem);
             saveTodos(); // 삭제 후 저장
         };
@@ -49,17 +49,25 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('todos', JSON.stringify(todos));
     }
 
-    // 이미지 다운로드 함수
-    window.downloadImage = function () {
-        // 현재 위젯 요소를 캡처
-        html2canvas(document.querySelector('.container')).then(canvas => {
-            // 이미지 데이터를 URL로 변환
-            const link = document.createElement('a');
-            link.href = canvas.toDataURL('image/png');
-            link.download = 'todolist.png'; // 다운로드할 파일 이름
-            document.body.appendChild(link); // 링크를 DOM에 추가
-            link.click(); // 다운로드 트리거
-            document.body.removeChild(link); // 다운로드 후 링크 제거
-        });
-    }
+    // 카메라 버튼 클릭 시 동작
+    document.getElementById('cameraButton').addEventListener('click', function() {
+        const shouldDownload = confirm('PNG 파일로 저장하시겠습니까?');
+        if (shouldDownload) {
+            // 현재 위젯 요소를 캡처하여 새로운 탭에서 열기
+            html2canvas(document.querySelector('.container')).then(canvas => {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = 'todolist.png'; // 다운로드할 파일 이름
+
+                // 새로운 창 열기
+                const newWindow = window.open();
+                newWindow.document.write('<html><head><title>To-Do List</title></head><body>');
+                newWindow.document.write('<h1>Your To-Do List</h1>');
+                newWindow.document.write('<img src="' + link.href + '" />');
+                newWindow.document.write('</body></html>');
+                newWindow.document.close(); // 페이지 로드 마무리
+                link.click(); // 다운로드 트리거
+            });
+        }
+    });
 });
