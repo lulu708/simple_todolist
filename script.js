@@ -71,3 +71,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+document.getElementById('copyLinkButton').addEventListener('click', function() {
+    const todos = Array.from(document.querySelectorAll('.todo-item input[type="text"]'))
+                       .map(item => item.value)
+                       .join(', '); // 투두 리스트를 문자열로 변환
+                       
+    navigator.clipboard.writeText(todos)
+        .then(() => {
+            alert('투두 리스트가 클립보드에 복사되었습니다!');
+        })
+        .catch(err => {
+            console.error('복사 실패:', err);
+        });
+});
+
