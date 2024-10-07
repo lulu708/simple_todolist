@@ -74,8 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.getElementById('copyLinkButton').addEventListener('click', function() {
     const todos = Array.from(document.querySelectorAll('.todo-item input[type="text"]'))
-                       .map(item => item.value)
-                       .join(', '); // 투두 리스트를 문자열로 변환
+                       .map(item => '• ' + item.value) // 각 투두 항목 앞에 '• ' 추가
+                       .join('\n'); // 줄넘김 처리
                        
     navigator.clipboard.writeText(todos)
         .then(() => {
@@ -85,4 +85,3 @@ document.getElementById('copyLinkButton').addEventListener('click', function() {
             console.error('복사 실패:', err);
         });
 });
-
