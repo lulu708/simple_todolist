@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const todoList = document.getElementById('todoList');
 
     // 저장된 투두리스트 항목 불러오기
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         addTodoItem(todo);
     });
 
-    document.getElementById('addButton').addEventListener('click', function() {
+    document.getElementById('addButton').addEventListener('click', function () {
         const newTodo = '';
         addTodoItem(newTodo);
     });
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const deleteButton = document.createElement('button');
         deleteButton.innerHTML = 'x';
         deleteButton.className = 'delete-button';
-        deleteButton.onclick = function() {
+        deleteButton.onclick = function () {
             todoList.removeChild(todoItem);
             saveTodos(); // 삭제 후 저장
         };
@@ -50,14 +50,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 이미지 다운로드 함수
-    window.downloadImage = function() {
+    window.downloadImage = function () {
         // 현재 위젯 요소를 캡처
         html2canvas(document.querySelector('.container')).then(canvas => {
             // 이미지 데이터를 URL로 변환
             const link = document.createElement('a');
             link.href = canvas.toDataURL('image/png');
             link.download = 'todolist.png'; // 다운로드할 파일 이름
+            document.body.appendChild(link); // 링크를 DOM에 추가
             link.click(); // 다운로드 트리거
+            document.body.removeChild(link); // 다운로드 후 링크 제거
         });
     }
 });
