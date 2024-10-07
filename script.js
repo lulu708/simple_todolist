@@ -75,6 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('copyLinkButton').addEventListener('click', function() {
     const todos = Array.from(document.querySelectorAll('.todo-item input[type="text"]'))
                        .map(item => '- ' + item.value) // 각 투두 항목 앞에 '- ' 추가
+                       .join('\n'); // 줄넘김 처리
+    
                        
                        
     navigator.clipboard.writeText(todos)
