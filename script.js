@@ -22,17 +22,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const inputField = document.createElement('input');
         inputField.type = 'text';
         inputField.placeholder = '할 일을 입력하세요';
-        inputField.value = todo; // 기존 항목의 내용 설정
+        inputField.value = todo;
 
         const deleteButton = document.createElement('button');
         deleteButton.innerHTML = 'x';
         deleteButton.className = 'delete-button';
         deleteButton.onclick = function() {
             todoList.removeChild(todoItem);
-            saveTodos(); // 삭제 후 저장
+            saveTodos();
         };
 
-        inputField.addEventListener('input', saveTodos); // 입력 시 저장
+        inputField.addEventListener('input', saveTodos);
 
         todoItem.appendChild(checkbox);
         todoItem.appendChild(inputField);
@@ -48,4 +48,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         localStorage.setItem('todos', JSON.stringify(todos));
     }
+
+    // 캡처 버튼 클릭 시 html2canvas를 사용해 PNG 파일로 내보내기
+    document.getElementById('captureButton').addEventListener('click', function() {
+        html2canvas(document.querySelector('.container')).then(canvas => {
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'todo-list.png';
+            link.click();
+        });
+    });
 });
