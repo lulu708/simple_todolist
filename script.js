@@ -1,7 +1,3 @@
-document.getElementById('cameraButton').addEventListener('click', function() {
-    alert('카메라 버튼이 클릭되었습니다!'); // 버튼 클릭 테스트
-});
-
 document.addEventListener('DOMContentLoaded', function() {
     const todoList = document.getElementById('todoList');
 
